@@ -2,7 +2,7 @@ export function Content() {
   return (
     <div className="col-span-6 flex flex-col gap-3 items-center w-full">
 
-      {/* Create Post Card */}
+   
       <div className="bg-[#1b1f23] w-full max-w-2xl p-4 rounded-lg">
         <div className="flex items-center gap-3">
           <img
