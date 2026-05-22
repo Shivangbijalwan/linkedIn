@@ -1,37 +1,49 @@
 export function Content() {
   return (
-    <div className="col-span-6 flex flex-col gap-3 items-center w-full">
+    <div className="col-span-12 lg:col-span-6 flex flex-col gap-4 items-center w-full px-2 sm:px-4">
 
       {/* Create Post Card */}
-      <div className="bg-[#1b1f23] w-full max-w-2xl p-4 rounded-lg">
+      <div className="bg-[#1b1f23] w-full max-w-2xl p-3 sm:p-4 rounded-xl">
         <div className="flex items-center gap-3">
           <img
             src="profile.jpg"
-            className="h-12 w-12 rounded-full shrink-0"
+            className="h-10 w-10 sm:h-12 sm:w-12 rounded-full shrink-0"
             alt="Profile"
           />
-          <div className="border border-gray-600 w-full p-3 pl-5 font-semibold rounded-full cursor-pointer text-gray-400 hover:border-gray-400 transition-colors">
+
+          <div className="border border-gray-600 w-full p-2.5 sm:p-3 pl-4 sm:pl-5 text-sm sm:text-base font-semibold rounded-full cursor-pointer text-gray-400 hover:border-gray-400 transition-colors">
             Start a post
           </div>
         </div>
 
-        <div className="w-full mt-4 flex justify-between items-center gap-4 px-6">
-          <div className="flex items-center gap-1 cursor-pointer hover:bg-white/5 px-3 py-2 rounded-lg transition-colors">
-            <img src="youtube.svg" className="h-5 w-5 invert" alt="" />
-            <span className="text-sm text-gray-400 font-semibold">Video</span>
+        {/* Create Options */}
+        <div className="w-full mt-4 flex items-center justify-between gap-2 sm:gap-4">
+
+          <div className="flex items-center gap-1 cursor-pointer hover:bg-white/5 px-2 sm:px-3 py-2 rounded-lg transition-colors">
+            <img src="youtube.svg" className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
+            <span className="text-xs sm:text-sm text-gray-400 font-semibold">
+              Video
+            </span>
           </div>
-          <div className="flex items-center gap-1 cursor-pointer hover:bg-white/5 px-3 py-2 rounded-lg transition-colors">
-            <img src="  img.svg" className="h-5 w-5 invert" alt="" />
-            <span className="text-sm text-gray-400 font-semibold">Photo</span>
+
+          <div className="flex items-center gap-1 cursor-pointer hover:bg-white/5 px-2 sm:px-3 py-2 rounded-lg transition-colors">
+            <img src="img.svg" className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
+            <span className="text-xs sm:text-sm text-gray-400 font-semibold">
+              Photo
+            </span>
           </div>
-          <div className="flex items-center gap-1 cursor-pointer hover:bg-white/5 px-3 py-2 rounded-lg transition-colors">
-            <img src="article.svg" className="h-5 w-5 invert" alt="" />
-            <span className="text-sm text-gray-400 font-semibold">Article</span>
+
+          <div className="flex items-center gap-1 cursor-pointer hover:bg-white/5 px-2 sm:px-3 py-2 rounded-lg transition-colors">
+            <img src="article.svg" className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
+            <span className="text-xs sm:text-sm text-gray-400 font-semibold">
+              Article
+            </span>
           </div>
+
         </div>
       </div>
 
-      {/* Post Card — reusable structure */}
+      {/* Posts */}
       <PostCard
         avatar="mannu arora.jpg"
         name="Mannu Arora"
@@ -53,7 +65,6 @@ export function Content() {
         likes="927"
         comments="103"
       />
-
     </div>
   );
 }
@@ -69,49 +80,95 @@ interface PostCardProps {
   comments: string;
 }
 
-function PostCard({ avatar, name, bio, time, body, postImg, likes, comments }: PostCardProps) {
+function PostCard({
+  avatar,
+  name,
+  bio,
+  time,
+  body,
+  postImg,
+  likes,
+  comments,
+}: PostCardProps) {
   return (
-    <div className="border border-gray-700 bg-[#1b1f23] w-full max-w-2xl p-4 rounded-lg">
+    <div className="border border-gray-700 bg-[#1b1f23] w-full max-w-2xl p-3 sm:p-4 rounded-xl">
 
       {/* Author Row */}
       <div className="flex items-start gap-3">
-        <img src={avatar} className="h-12 w-12 rounded-full shrink-0" alt={name} />
-        <div className="flex flex-col gap-0.5">
-          <span className="text-base font-semibold">{name}</span>
-          <span className="text-sm text-gray-300">{bio}</span>
+        <img
+          src={avatar}
+          className="h-10 w-10 sm:h-12 sm:w-12 rounded-full shrink-0 object-cover"
+          alt={name}
+        />
+
+        <div className="flex flex-col gap-0.5 min-w-0">
+          <span className="text-sm sm:text-base font-semibold truncate">
+            {name}
+          </span>
+
+          <span className="text-xs sm:text-sm text-gray-300 line-clamp-2">
+            {bio}
+          </span>
+
           <div className="flex items-center gap-1 mt-0.5">
             <span className="text-xs text-gray-400">{time}</span>
-            <img src=" world.svg" className="h-3 w-3 invert" alt="Public" />
+
+            <img
+              src="world.svg"
+              className="h-3 w-3 invert"
+              alt="Public"
+            />
           </div>
         </div>
       </div>
 
       {/* Body */}
       <div className="mt-4">
-        <p className="text-sm text-gray-300">{body}</p>
-        <img src={postImg} className="h-auto w-full mt-4 rounded-lg object-cover" alt="Post" />
+        <p className="text-sm text-gray-300 leading-relaxed">
+          {body}
+        </p>
+
+        {postImg && (
+          <img
+            src={postImg}
+            className="h-auto w-full mt-4 rounded-lg object-cover max-h-[500px]"
+            alt="Post"
+          />
+        )}
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-between mt-4 px-2">
-        <div className="flex items-center gap-1 cursor-pointer hover:bg-white/5 px-3 py-2 rounded-lg transition-colors">
-          <img src="like.svg" className="h-5 w-5 invert" alt="" />
-          <span className="text-sm text-gray-400 font-semibold">{likes}</span>
-        </div>
-        <div className="flex items-center gap-1 cursor-pointer hover:bg-white/5 px-3 py-2 rounded-lg transition-colors">
-          <img src="comment.svg" className="h-5 w-5 invert" alt="" />
-          <span className="text-sm text-gray-400 font-semibold">{comments}</span>
-        </div>
-        <div className="flex items-center gap-1 cursor-pointer hover:bg-white/5 px-3 py-2 rounded-lg transition-colors">
-          <img src="repost.svg" className="h-5 w-5 invert" alt="" />
-          <span className="text-sm text-gray-400 font-semibold">Repost</span>
-        </div>
-        <div className="flex items-center gap-1 cursor-pointer hover:bg-white/5 px-3 py-2 rounded-lg transition-colors">
-          <img src="share.svg" className="h-5 w-5 invert" alt="" />
-          <span className="text-sm text-gray-400 font-semibold">Share</span>
-        </div>
-      </div>
+      <div className="grid grid-cols-4 gap-1 sm:gap-2 mt-4">
 
+        <div className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 py-2 rounded-lg transition-colors">
+          <img src="like.svg" className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
+          <span className="text-xs sm:text-sm text-gray-400 font-semibold">
+            {likes}
+          </span>
+        </div>
+
+        <div className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 py-2 rounded-lg transition-colors">
+          <img src="comment.svg" className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
+          <span className="text-xs sm:text-sm text-gray-400 font-semibold">
+            {comments}
+          </span>
+        </div>
+
+        <div className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 py-2 rounded-lg transition-colors">
+          <img src="repost.svg" className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
+          <span className="hidden sm:block text-sm text-gray-400 font-semibold">
+            Repost
+          </span>
+        </div>
+
+        <div className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 py-2 rounded-lg transition-colors">
+          <img src="share.svg" className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
+          <span className="hidden sm:block text-sm text-gray-400 font-semibold">
+            Share
+          </span>
+        </div>
+
+      </div>
     </div>
   );
 }
