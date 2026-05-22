@@ -1,20 +1,41 @@
-import Image from "next/image";
 import { Nav } from "@/components/nav";
 import { User } from "@/components/first";
 import { Content } from "@/components/second";
 import { News } from "@/components/third";
 import { MessagingBar } from "@/components/message";
 
-
 export default function Home() {
   return (
-    <div>
+    <div className="min-h-screen bg-black text-white">
+
       <Nav />
-      <main className="grid grid-cols-1 md:grid-cols-12 gap-6 max-w-7xl mx-auto px-4 mt-6">
-        <div className="md:col-span-3"><User /></div>
-        <div className="md:col-span-6"><Content /></div>
-        <div className="md:col-span-3"><News /></div>
+
+      <main className="max-w-7xl mx-auto px-2 sm:px-4 mt-4 lg:mt-6">
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+          {/* Left Sidebar */}
+          <div className="hidden lg:block lg:col-span-3">
+            <div className="sticky top-20">
+              <User />
+            </div>
+          </div>
+
+          {/* Main Feed */}
+          <div className="col-span-1 lg:col-span-6">
+            <Content />
+          </div>
+
+          {/* Right Sidebar */}
+          <div className="hidden lg:block lg:col-span-3">
+            <div className="sticky top-20">
+              <News />
+            </div>
+          </div>
+
+        </div>
       </main>
+
       <MessagingBar />
     </div>
   );
