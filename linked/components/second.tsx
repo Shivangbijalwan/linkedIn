@@ -58,7 +58,18 @@ export function Content() {
   );
 }
 
-function PostCard({ avatar, name, bio, time, body, postImg, likes, comments }) {  
+interface PostCardProps {
+  avatar: string;
+  name: string;
+  bio: string;
+  time: string;
+  body: string;
+  postImg?: string;
+  likes: string;
+  comments: string;
+}
+
+function PostCard({ avatar, name, bio, time, body, postImg, likes, comments }: PostCardProps) {
   return (
     <div className="border border-gray-700 bg-[#1b1f23] w-full max-w-2xl p-4 rounded-lg">
 
