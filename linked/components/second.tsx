@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+
+
 export function Content() {
   return (
     <div className="w-full lg:col-span-6 flex flex-col gap-4 items-center px-2 sm:px-4">
@@ -21,39 +26,18 @@ export function Content() {
         <div className="w-full mt-4 grid grid-cols-3 gap-2">
 
           <div className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 sm:px-3 py-2 rounded-lg transition-colors">
-            <img
-              src="youtube.svg"
-              className="h-4 w-4 sm:h-5 sm:w-5 invert"
-              alt=""
-            />
-
-            <span className="text-xs sm:text-sm text-gray-400 font-semibold">
-              Video
-            </span>
+            <img src="youtube.svg" className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
+            <span className="text-xs sm:text-sm text-gray-400 font-semibold">Video</span>
           </div>
 
           <div className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 sm:px-3 py-2 rounded-lg transition-colors">
-            <img
-              src="img.svg"
-              className="h-4 w-4 sm:h-5 sm:w-5 invert"
-              alt=""
-            />
-
-            <span className="text-xs sm:text-sm text-gray-400 font-semibold">
-              Photo
-            </span>
+            <img src="img.svg" className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
+            <span className="text-xs sm:text-sm text-gray-400 font-semibold">Photo</span>
           </div>
 
           <div className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 sm:px-3 py-2 rounded-lg transition-colors">
-            <img
-              src="article.svg"
-              className="h-4 w-4 sm:h-5 sm:w-5 invert"
-              alt=""
-            />
-
-            <span className="text-xs sm:text-sm text-gray-400 font-semibold">
-              Article
-            </span>
+            <img src="article.svg" className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
+            <span className="text-xs sm:text-sm text-gray-400 font-semibold">Article</span>
           </div>
 
         </div>
@@ -113,7 +97,6 @@ function PostCard({
       <div className="p-3 sm:p-4">
 
         <div className="flex items-start gap-3">
-
           <img
             src={avatar}
             className="h-10 w-10 sm:h-12 sm:w-12 rounded-full shrink-0 object-cover"
@@ -121,23 +104,16 @@ function PostCard({
           />
 
           <div className="flex flex-col gap-0.5 min-w-0 flex-1">
-
             <div className="flex items-center justify-between gap-2">
-
               <div className="min-w-0">
                 <span className="text-sm sm:text-base font-semibold truncate block">
                   {name}
                 </span>
-
                 <span className="text-xs sm:text-sm text-gray-300 line-clamp-2 block">
                   {bio}
                 </span>
-
                 <div className="flex items-center gap-1 mt-0.5">
-                  <span className="text-xs text-gray-400">
-                    {time}
-                  </span>
-
+                  <span className="text-xs text-gray-400">{time}</span>
                   <img
                     src="world.svg"
                     className="h-3 w-3 invert opacity-70"
@@ -145,7 +121,6 @@ function PostCard({
                   />
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -170,40 +145,69 @@ function PostCard({
 
       {/* Actions */}
       <div className="grid grid-cols-4 gap-1 sm:gap-2 p-2 sm:p-3 border-t border-gray-700">
-
-        <ActionButton icon="like.svg" text={likes} />
-
+        <LikeButton likes={likes} />
         <ActionButton icon="comment.svg" text={comments} />
-
         <ActionButton icon="repost.svg" text="Repost" />
-
         <ActionButton icon="share.svg" text="Share" />
-
       </div>
+
     </div>
+  );
+}
+
+function LikeButton({ likes }: { likes: string }) {
+  // flag === 0 → not liked, flag === 1 → liked  (mirrors your JS logic)
+  const [liked, setLiked] = useState(false);
+  const [count, setCount] = useState(Number(likes));
+
+  const handleClick = () => {
+    if (!liked) {
+      // flag was 0 → set to 1 (like)
+      setLiked(true);
+      setCount((prev) => prev + 1);
+    } else {
+      // flag was 1 → set to 0 (unlike)
+      setLiked(false);
+      setCount((prev) => prev - 1);
+    }
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 py-2 rounded-lg transition-colors"
+    >
+
+      <img
+        src={liked ? "afterlike.png" : "like.svg"}
+        className={`h-4 w-4 sm:h-5 sm:w-5 ${!liked ? "invert" : ""}`}
+        alt="Like"
+      />
+      <span className="text-[11px] sm:text-sm text-gray-400 font-semibold truncate">
+        {count}
+      </span>
+    </button>
   );
 }
 
 function ActionButton({
   icon,
   text,
+  onClick,
 }: {
   icon: string;
   text: string;
+  onClick?: () => void;
 }) {
   return (
-    <div className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 py-2 rounded-lg transition-colors">
-
-      <img
-        src={icon}
-        className="h-4 w-4 sm:h-5 sm:w-5 invert"
-        alt=""
-      />
-
+    <div
+      onClick={onClick}
+      className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 py-2 rounded-lg transition-colors"
+    >
+      <img src={icon} className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
       <span className="text-[11px] sm:text-sm text-gray-400 font-semibold truncate">
         {text}
       </span>
-
     </div>
   );
 }
