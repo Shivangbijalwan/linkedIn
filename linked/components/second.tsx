@@ -103,25 +103,29 @@ function PostCard({
             alt={name}
           />
 
+          {/* flex-1 + min-w-0 so this column stretches to fill remaining width */}
           <div className="flex flex-col gap-0.5 min-w-0 flex-1">
-            <div className="flex items-center justify-between gap-2">
-              <div className="min-w-0">
-                <span className="text-sm sm:text-base font-semibold truncate block">
-                  {name}
-                </span>
-                <span className="text-xs sm:text-sm text-gray-300 line-clamp-2 block">
-                  {bio}
-                </span>
-                <div className="flex items-center gap-1 mt-0.5">
-                  <span className="text-xs text-gray-400">{time}</span>
-                  <img
-                    src="world.svg"
-                    className="h-3 w-3 invert opacity-70"
-                    alt="Public"
-                  />
-                </div>
-              </div>
+
+            {/* w-full + justify-between pushes name left, follow right */}
+            <div className="flex items-center justify-between w-full gap-2">
+              <span className="text-sm sm:text-base font-semibold truncate">
+                {name}
+              </span>
+              <FollowButton />
             </div>
+
+            <span className="text-xs sm:text-sm text-gray-300 line-clamp-2 block">
+              {bio}
+            </span>
+            <div className="flex items-center gap-1 mt-0.5">
+              <span className="text-xs text-gray-400">{time}</span>
+              <img
+                src="world.svg"
+                className="h-3 w-3 invert opacity-70"
+                alt="Public"
+              />
+            </div>
+
           </div>
         </div>
 
@@ -155,18 +159,30 @@ function PostCard({
   );
 }
 
+function FollowButton() {
+  const [following, setFollowing] = useState(false);
+
+  return (
+    <button
+      onClick={() => setFollowing((prev) => !prev)}
+      className={`text-xs sm:text-sm font-bold transition-colors shrink-0 ${
+        following ? "text-gray-400" : "text-blue-400"
+      }`}
+    >
+      {following ? "✓ Following" : "+ Follow"}
+    </button>
+  );
+}
+
 function LikeButton({ likes }: { likes: string }) {
-  // flag === 0 → not liked, flag === 1 → liked  (mirrors your JS logic)
   const [liked, setLiked] = useState(false);
   const [count, setCount] = useState(Number(likes));
 
   const handleClick = () => {
     if (!liked) {
-      // flag was 0 → set to 1 (like)
       setLiked(true);
       setCount((prev) => prev + 1);
     } else {
-      // flag was 1 → set to 0 (unlike)
       setLiked(false);
       setCount((prev) => prev - 1);
     }
@@ -177,9 +193,8 @@ function LikeButton({ likes }: { likes: string }) {
       onClick={handleClick}
       className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 py-2 rounded-lg transition-colors"
     >
-
       <img
-        src={liked ? "afterlike.png" : "like.svg"}
+        src={liked ? "afterlike.png" : "like.png"}
         className={`h-4 w-4 sm:h-5 sm:w-5 ${!liked ? "invert" : ""}`}
         alt="Like"
       />
