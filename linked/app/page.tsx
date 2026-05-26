@@ -3,6 +3,7 @@ import { User } from "@/components/first";
 import { Content } from "@/components/second";
 import { News } from "@/components/third";
 import { MessagingBar } from "@/components/message";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
@@ -34,8 +35,9 @@ export default function Home() {
           </div>
 
         </div>
+     
       </main>
-
+   <div> <Footer /> </div>
       <MessagingBar />
     </div>
   );

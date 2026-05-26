@@ -1,30 +1,30 @@
+import Link from 'next/link'
+
 export function User() {
   return (
-   
     <div className="flex flex-col gap-3 w-full sm:w-56 self-start sticky top-20">
 
-      {/* Profile Card */}
-      <div className="bg-[#1b1f23] rounded-2xl overflow-hidden">
-        <img src="banner.jpg" className="h-auto w-full object-cover" alt="banner" />
-        <img
-          src="profile.jpg"
-          className="h-16 w-16 rounded-full relative z-20 -mt-8 ml-3 border-2 border-black"
-          alt="Profile"
-        />
-       
-        <div className="flex flex-col items-center gap-2 pb-5 px-3">
-          <span className="text-xl font-semibold">Shivang Bijalwan</span>
-          <span className="text-xs text-white text-center font-medium">
-            💻 Web Developer | Building SaaS Products | Creator of TTA | JS • Django • Tailwind CSS • Python
-          </span>
-          <span className="text-xs text-gray-400 font-medium">
-            Dehradun, Uttarakhand
-          </span>
-          <span className="text-sm text-gray-300 font-semibold flex items-center gap-1">
-            <img src="freelance.svg" className="h-5 w-5" alt="" /> Freelance
-          </span>
+      {/* Profile Card — clicking anywhere opens profile */}
+      <Link href="/profile">
+        <div className="bg-[#1b1f23] rounded-2xl overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
+          <img src="banner.jpg" className="h-auto w-full object-cover" alt="banner" />
+          <img
+            src="profile.jpg"
+            className="h-16 w-16 rounded-full relative z-20 -mt-8 ml-3 border-2 border-black"
+            alt="Profile"
+          />
+          <div className="flex flex-col items-center gap-2 pb-5 px-3">
+            <span className="text-xl font-semibold">Shivang Bijalwan</span>
+            <span className="text-xs text-white text-center font-medium">
+              💻 Web Developer | Building SaaS Products ...
+            </span>
+            <span className="text-xs text-gray-400 font-medium">Dehradun, Uttarakhand</span>
+            <span className="text-sm text-gray-300 font-semibold flex items-center gap-1">
+              <img src="freelance.svg" className="h-5 w-5" alt="" /> Freelance
+            </span>
+          </div>
         </div>
-      </div>
+      </Link>
 
       {/* Premium Card */}
       <div className="bg-[#1b1f23] rounded-2xl p-4 flex flex-col gap-1">
