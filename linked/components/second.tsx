@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
+import Link from 'next/link';
 
 export function Content() {
   return (
@@ -11,12 +11,13 @@ export function Content() {
       <div className="bg-[#1b1f23] w-full max-w-2xl p-3 sm:p-4 rounded-xl border border-gray-800">
 
         <div className="flex items-center gap-3">
-          <img
-            src="profile.jpg"
-            className="h-10 w-10 sm:h-12 sm:w-12 rounded-full shrink-0 object-cover"
-            alt="Profile"
-          />
-
+          <Link href="/profile">
+            <img
+              src="profile.jpg"
+              className="h-10 w-10 sm:h-12 sm:w-12 rounded-full shrink-0 object-cover"
+              alt="Profile"
+            />
+          </Link>
           <div className="border border-gray-600 w-full p-2.5 sm:p-3 pl-4 sm:pl-5 text-sm sm:text-base font-semibold rounded-full cursor-pointer text-gray-400 hover:border-gray-400 transition-colors">
             Start a post
           </div>
@@ -24,22 +25,18 @@ export function Content() {
 
         {/* Create Options */}
         <div className="w-full mt-4 grid grid-cols-3 gap-2">
-
           <div className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 sm:px-3 py-2 rounded-lg transition-colors">
             <img src="youtube.svg" className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
             <span className="text-xs sm:text-sm text-gray-400 font-semibold">Video</span>
           </div>
-
           <div className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 sm:px-3 py-2 rounded-lg transition-colors">
             <img src="img.svg" className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
             <span className="text-xs sm:text-sm text-gray-400 font-semibold">Photo</span>
           </div>
-
           <div className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 sm:px-3 py-2 rounded-lg transition-colors">
             <img src="article.svg" className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
             <span className="text-xs sm:text-sm text-gray-400 font-semibold">Article</span>
           </div>
-
         </div>
       </div>
 
@@ -65,6 +62,7 @@ export function Content() {
         likes="927"
         comments="103"
       />
+
     </div>
   );
 }
@@ -80,74 +78,39 @@ interface PostCardProps {
   comments: string;
 }
 
-function PostCard({
-  avatar,
-  name,
-  bio,
-  time,
-  body,
-  postImg,
-  likes,
-  comments,
-}: PostCardProps) {
+function PostCard({ avatar, name, bio, time, body, postImg, likes, comments }: PostCardProps) {
   return (
     <div className="border border-gray-700 bg-[#1b1f23] w-full max-w-2xl rounded-xl overflow-hidden">
 
-      {/* Author Row */}
       <div className="p-3 sm:p-4">
-
         <div className="flex items-start gap-3">
           <img
             src={avatar}
             className="h-10 w-10 sm:h-12 sm:w-12 rounded-full shrink-0 object-cover"
             alt={name}
           />
-
-          {/* flex-1 + min-w-0 so this column stretches to fill remaining width */}
           <div className="flex flex-col gap-0.5 min-w-0 flex-1">
-
-            {/* w-full + justify-between pushes name left, follow right */}
             <div className="flex items-center justify-between w-full gap-2">
-              <span className="text-sm sm:text-base font-semibold truncate">
-                {name}
-              </span>
+              <span className="text-sm sm:text-base font-semibold truncate">{name}</span>
               <FollowButton />
             </div>
-
-            <span className="text-xs sm:text-sm text-gray-300 line-clamp-2 block">
-              {bio}
-            </span>
+            <span className="text-xs sm:text-sm text-gray-300 line-clamp-2 block">{bio}</span>
             <div className="flex items-center gap-1 mt-0.5">
               <span className="text-xs text-gray-400">{time}</span>
-              <img
-                src="world.svg"
-                className="h-3 w-3 invert opacity-70"
-                alt="Public"
-              />
+              <img src="world.svg" className="h-3 w-3 invert opacity-70" alt="Public" />
             </div>
-
           </div>
         </div>
 
-        {/* Body */}
         <div className="mt-4">
-          <p className="text-sm text-gray-300 leading-relaxed break-words">
-            {body}
-          </p>
+          <p className="text-sm text-gray-300 leading-relaxed break-words">{body}</p>
         </div>
-
       </div>
 
-      {/* Post Image */}
       {postImg && (
-        <img
-          src={postImg}
-          className="w-full max-h-[500px] object-cover"
-          alt="Post"
-        />
+        <img src={postImg} className="w-full max-h-[500px] object-cover" alt="Post" />
       )}
 
-      {/* Actions */}
       <div className="grid grid-cols-4 gap-1 sm:gap-2 p-2 sm:p-3 border-t border-gray-700">
         <LikeButton likes={likes} />
         <ActionButton icon="comment.svg" text={comments} />
@@ -161,7 +124,6 @@ function PostCard({
 
 function FollowButton() {
   const [following, setFollowing] = useState(false);
-
   return (
     <button
       onClick={() => setFollowing((prev) => !prev)}
@@ -205,24 +167,14 @@ function LikeButton({ likes }: { likes: string }) {
   );
 }
 
-function ActionButton({
-  icon,
-  text,
-  onClick,
-}: {
-  icon: string;
-  text: string;
-  onClick?: () => void;
-}) {
+function ActionButton({ icon, text, onClick }: { icon: string; text: string; onClick?: () => void }) {
   return (
     <div
       onClick={onClick}
       className="flex items-center justify-center gap-1 cursor-pointer hover:bg-white/5 px-2 py-2 rounded-lg transition-colors"
     >
       <img src={icon} className="h-4 w-4 sm:h-5 sm:w-5 invert" alt="" />
-      <span className="text-[11px] sm:text-sm text-gray-400 font-semibold truncate">
-        {text}
-      </span>
+      <span className="text-[11px] sm:text-sm text-gray-400 font-semibold truncate">{text}</span>
     </div>
   );
 }

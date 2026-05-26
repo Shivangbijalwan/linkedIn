@@ -4,7 +4,7 @@ export function User() {
   return (
     <div className="flex flex-col gap-3 w-full sm:w-56 self-start sticky top-20">
 
-      {/* Profile Card — clicking anywhere opens profile */}
+     
       <Link href="/profile">
         <div className="bg-[#1b1f23] rounded-2xl overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
           <img src="banner.jpg" className="h-auto w-full object-cover" alt="banner" />
