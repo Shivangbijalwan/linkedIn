@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 
 export function Content() {
   return (
@@ -9,7 +9,6 @@ export function Content() {
 
       {/* Create Post Card */}
       <div className="bg-[#1b1f23] w-full max-w-2xl p-3 sm:p-4 rounded-xl border border-gray-800">
-
         <div className="flex items-center gap-3">
           <Link href="/profile">
             <img
@@ -79,16 +78,66 @@ interface PostCardProps {
 }
 
 function PostCard({ avatar, name, bio, time, body, postImg, likes, comments }: PostCardProps) {
+  // ✅ State now lives inside PostCard where all variables are in scope
+  const [showStory, setShowStory] = useState(false);
+
   return (
     <div className="border border-gray-700 bg-[#1b1f23] w-full max-w-2xl rounded-xl overflow-hidden">
 
+      {/* ✅ Story overlay moved inside PostCard so it can access avatar, name, time, postImg */}
+      {showStory && postImg && (
+        <div
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-[9999]"
+          onClick={() => setShowStory(false)}
+        >
+          <div
+            className="relative w-full max-w-md mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowStory(false)}
+              className="absolute top-2 right-3 text-white text-3xl z-10"
+            >
+              ×
+            </button>
+
+            <div className="bg-[#1b1f23] rounded-xl overflow-hidden">
+              <div className="flex items-center gap-3 p-4">
+                <img
+                  src={avatar}
+                  className="h-10 w-10 rounded-full object-cover"
+                  alt={name}
+                />
+                <div>
+                  <p className="text-white font-semibold">{name}</p>
+                  <p className="text-gray-400 text-xs">{time}</p>
+                </div>
+              </div>
+
+              <img
+                src={postImg}
+                className="w-full max-h-[80vh] object-cover"
+                alt="Story"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="p-3 sm:p-4">
         <div className="flex items-start gap-3">
-          <img
-            src={avatar}
-            className="h-10 w-10 sm:h-12 sm:w-12 rounded-full shrink-0 object-cover"
-            alt={name}
-          />
+          {/* ✅ Removed duplicate wrapper div; single clickable avatar */}
+          <div
+            onClick={() => setShowStory(true)}
+            className="h-10 w-10 sm:h-12 sm:w-12 rounded-full p-[2px] bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 shrink-0 cursor-pointer"
+          >
+            <img
+              src={avatar}
+              className="h-full w-full rounded-full object-cover border-2 border-[#1b1f23]"
+              alt={name}
+            />
+          </div>
+
           <div className="flex flex-col gap-0.5 min-w-0 flex-1">
             <div className="flex items-center justify-between w-full gap-2">
               <span className="text-sm sm:text-base font-semibold truncate">{name}</span>
@@ -167,7 +216,15 @@ function LikeButton({ likes }: { likes: string }) {
   );
 }
 
-function ActionButton({ icon, text, onClick }: { icon: string; text: string; onClick?: () => void }) {
+function ActionButton({
+  icon,
+  text,
+  onClick,
+}: {
+  icon: string;
+  text: string;
+  onClick?: () => void;
+}) {
   return (
     <div
       onClick={onClick}
