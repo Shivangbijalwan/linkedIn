@@ -40,5 +40,6 @@ export default function Home() {
    <div> <Footer /> </div>
       <MessagingBar />
     </div>
+    <div></div>
   );
 }
