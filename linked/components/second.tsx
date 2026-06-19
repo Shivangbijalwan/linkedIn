@@ -84,10 +84,9 @@ function PostCard({ avatar, name, bio, time, body, postImg, likes, comments }: P
   return (
     <div className="border border-gray-700 bg-[#1b1f23] w-full max-w-2xl rounded-xl overflow-hidden">
 
-      {/* ✅ Story overlay moved inside PostCard so it can access avatar, name, time, postImg */}
       {showStory && postImg && (
         <div
-          className="fixed inset-0 bg-black/90 flex items-center justify-center z-[9999]"
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-[9999]"
           onClick={() => setShowStory(false)}
         >
           <div
@@ -126,7 +125,7 @@ function PostCard({ avatar, name, bio, time, body, postImg, likes, comments }: P
 
       <div className="p-3 sm:p-4">
         <div className="flex items-start gap-3">
-          {/* ✅ Removed duplicate wrapper div; single clickable avatar */}
+       
           <div
             onClick={() => setShowStory(true)}
             className="h-10 w-10 sm:h-12 sm:w-12 rounded-full p-[2px] bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 shrink-0 cursor-pointer"
